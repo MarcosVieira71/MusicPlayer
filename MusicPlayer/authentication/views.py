@@ -14,16 +14,13 @@ def spotifyCallback(request):
         return JsonResponse({'error': 'No authorization code provided'}, status=400)
 
     spAuth = getSpotifyOAuth()
-    tokenInfo = spAuth.get_access_token(code, check_cache=False)  # Adicione check_cache=False para evitar uso do token cacheado
+    tokenInfo = spAuth.get_access_token(code, check_cache=False) 
 
     if not tokenInfo:
         return JsonResponse({'error': 'Failed to retrieve access token'}, status=400)
 
-    # Use the token to make an API request
     spot = Spotify(auth=tokenInfo['access_token'])
     userProfile = spot.current_user()
 
-    # Armazene o token no cookie da sessão se necessário
-    request.session['spotify_auth'] = tokenInfo['access_token']
-    
+    request.session['spotify_auth'] = tokenInfo['access_token']    
     return JsonResponse(userProfile)
