@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
+from dotenv import load_dotenv
 from pathlib import Path
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-km76)1=__6+1w8s3)+6@l%nityt$+a244578z2k(ubll5p3iv$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
+SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
+SPOTIPY_SCOPE = os.getenv('SPOTIPY_SCOPE')
+
+# settings.py
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'  # Para sessões seguras baseadas em cookies
+SESSION_COOKIE_SECURE = True  # Habilita cookies seguros, se estiver usando HTTPS
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Expira a sessão ao fechar o navegador
