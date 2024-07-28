@@ -1,0 +1,20 @@
+{% load custom_filter %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minha Playlist</title>
+</head>
+<body>
+    <h1>Músicas da Playlist</h1>
+    <ul>
+        {% for item in playlist %}
+        <li>
+            <a href="{{ item.track.external_urls.spotify }}" target="_blank">
+                {{ item.track.name }}
+            </a> - {{ item.track.duration_ms|ms_to_minutes }} minutos
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

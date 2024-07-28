@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minhas Playlists</title>
+</head>
+<body>
+    <h1>Minhas Playlists</h1>
+    <ul>
+        {% for playlist in playlists %}
+        <li>
+            <a href="{% url 'playlist_details' playlist.id %}">
+                {{ playlist.name }}
+            </a> - {{ playlist.tracks.total }} músicas
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
